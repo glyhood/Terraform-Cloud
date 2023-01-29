@@ -10,8 +10,8 @@ module "devops_cluster" {
   source  = "./eks/"
 }
 
-module "acquire_cluster" {
-  source  = "./acquire-eks/"
+module "demo_cluster" {
+  source  = "./demo-eks/"
 }
 
 module "route53" {

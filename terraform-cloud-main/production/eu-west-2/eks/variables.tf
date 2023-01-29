@@ -5,7 +5,7 @@ variable "environment" {
 
 variable "cluster_name" {
   type    = string
-  default = "prod-eu-west-2-core-cluster"
+  default = "prod-eu-west-2-demo-cluster"
 }
 
 variable "auto_scaling_enabled" {

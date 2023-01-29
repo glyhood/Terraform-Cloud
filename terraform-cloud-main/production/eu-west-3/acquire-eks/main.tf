@@ -1,12 +1,12 @@
 ###################################
- #         ACQUIRE CLUSTER  #
+ #         demo CLUSTER  #
 ###################################
 
-module "acquire-eks" {
+module "demo-eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "18.3.1"
 
-  cluster_name                    = var.acquire_cluster_name
+  cluster_name                    = var.demo_cluster_name
   cluster_version                 = "1.23"
   cluster_endpoint_private_access = false
   cluster_endpoint_public_access  = true
@@ -43,10 +43,10 @@ module "acquire-eks" {
         "managed_by"  = "terraform"
       }
       tags = {
-        "Environment"                                   = "Acquire Prod"
+        "Environment"                                   = "demo Prod"
         "Terraform"                                     = "true"
-        "Owner"                                         = "Acquire Prod"
-        "k8s.io/cluster-autoscaler/${var.acquire_cluster_name}" = "owned"
+        "Owner"                                         = "demo Prod"
+        "k8s.io/cluster-autoscaler/${var.demo_cluster_name}" = "owned"
         "k8s.io/cluster-autoscaler/enabled "            = "true"
       }
     }

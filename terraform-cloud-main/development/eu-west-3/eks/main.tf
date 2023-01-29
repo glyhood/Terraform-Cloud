@@ -29,12 +29,12 @@ module "dev-eks-cluster" {
     }
   }
 
-  vpc_id     = "vpc-008ed9a17829e8ffd"
-  subnet_ids = ["subnet-0a04228d42a47598b", "subnet-0b855b98c947484cf", "subnet-0dc04908fcaf3f135"]
+  vpc_id     = "vpc-xxxx"
+  subnet_ids = ["subnet-xxxx", "subnet-xxxx", "subnet-xxxx"]
   manage_aws_auth_configmap = true
   aws_auth_roles = [
     {
-      rolearn  = "arn:aws:iam::326355388919:role/AWSReservedSSO_DevOps_DevEnv_78b26488f6bc173b"
+      rolearn  = "arn:aws:iam::1234567890:role/AWSReservedSSO_xxxx"
       username = "SSO_DevOps_DevEnv"
       groups   = ["system:masters"]
     }

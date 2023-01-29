@@ -29,11 +29,11 @@ locals {
   aws_auth_configmap_yaml = <<-EOT
   ${chomp(module.devops-eks.aws_auth_configmap_yaml)}
 
-      - rolearn: arn:aws:iam::724526322405:role/AWSReservedSSO_DevOps_ProdEnv_05222fed25e69974
+      - rolearn: arn:aws:iam::xxxx:role/AWSReservedSSO_DevOps_ProdEnv
         username: SSO_DevOps_ProdEnv
         groups:
           - system:masters
-      - rolearn: arn:aws:iam::724526322405:role/terraform-cloud
+      - rolearn: arn:aws:iam::xxxx:role/terraform-cloud
         username: terraform-cloud
         groups:
           - system:masters

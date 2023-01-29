@@ -9,10 +9,10 @@ dex:
 configs:
   cm:
     exec.enabled: true
-    url: https://argocd.devops-flutterwave.com
+    url: https://argocd.devops-xxxx.com
     oidc.config: |
       name: JumpCloud
-      clientID: e5f847eb-aa42-4e4b-a7f0-ef1abe523805
+      clientID: xxxx
       clientSecret: $oidc.jumpcloud.clientSecret
       issuer: https://oauth.id.jumpcloud.com/
     resource.customizations: |
@@ -41,13 +41,13 @@ configs:
 
   repositories:
     flutterwave-charts:
-      url: https://gitlab.com/api/v4/projects/38906879/packages/helm/stable
-      name: flutterwave-charts
+      url: https://gitlab.com/api/v4/projects/xxxx/packages/helm/stable
+      name: xxxx-charts
       type: helm
       password: ${argocd_gat}
       username: argocd
     app-manifests:
-      url: https://gitlab.com/Flutterwavego/devops/argocd.git
+      url: https://gitlab.com/xxxx/devops/argocd.git
       name: app-manifests
       type: git
 
@@ -65,7 +65,7 @@ server:
     enabled: true
     ingressClassName: "nginx"
     hosts:
-      - argocd.devops-flutterwave.com
+      - argocd.devops-xxxx.com
     https: true
   extraArgs:
     - --insecure

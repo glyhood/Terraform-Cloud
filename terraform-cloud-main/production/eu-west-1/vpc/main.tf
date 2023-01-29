@@ -1,5 +1,5 @@
 locals {
-  cluster_name = "prod-eu-west-1-f4b-cluster"
+  cluster_name = "prod-eu-west-1-cluster"
 }
 
 module "vpc" {

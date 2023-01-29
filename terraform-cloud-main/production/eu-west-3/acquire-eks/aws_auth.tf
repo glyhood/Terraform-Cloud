@@ -1,9 +1,9 @@
-data "aws_eks_cluster_auth" "acquire-eks" {
-  name = module.acquire-eks.cluster_id
+data "aws_eks_cluster_auth" "demo-eks" {
+  name = module.demo-eks.cluster_id
 }
 
-data "aws_eks_cluster" "acquire-eks" {
-  name = module.acquire-eks.cluster_id
+data "aws_eks_cluster" "demo-eks" {
+  name = module.demo-eks.cluster_id
 }
 
 locals {
@@ -12,30 +12,30 @@ locals {
     kind            = "Config"
     current-context = "terraform"
     clusters = [{
-      name = module.acquire-eks.cluster_id
+      name = module.demo-eks.cluster_id
       cluster = {
-        certificate-authority-data = module.acquire-eks.cluster_certificate_authority_data
-        server                     = module.acquire-eks.cluster_endpoint
+        certificate-authority-data = module.demo-eks.cluster_certificate_authority_data
+        server                     = module.demo-eks.cluster_endpoint
       }
     }]
     contexts = [{
       name = "terraform"
       context = {
-        cluster = module.acquire-eks.cluster_id
+        cluster = module.demo-eks.cluster_id
         user    = "terraform"
       }
     }]
     users = [{
       name = "terraform"
       user = {
-        token = data.aws_eks_cluster_auth.acquire-eks.token
+        token = data.aws_eks_cluster_auth.demo-eks.token
       }
     }]
   })
 
   # we have to combine the configmap created by the eks module with the externally created node group/profile sub-modules
   aws_auth_configmap = <<-EOT
-  ${chomp(module.acquire-eks.aws_auth_configmap_yaml)}
+  ${chomp(module.demo-eks.aws_auth_configmap_yaml)}
 
       - rolearn: arn:aws:iam::724526322405:role/AWSReservedSSO_DevOps_ProdEnv_05222fed25e69974
         username: SSO_DevOps_ProdEnv

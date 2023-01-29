@@ -16,8 +16,8 @@ module "devops-eks" {
     }
   }
 
-  vpc_id     = "vpc-0e649863a64c19894"
-  subnet_ids = ["subnet-046d999475ec4688c", "subnet-06f1edc96e2a806fe"]
+  vpc_id     = "vpc-xxxx"
+  subnet_ids = ["subnet-xxxx", "subnet-xxxx"]
 
   eks_managed_node_group_defaults = {
     ami_type       = "AL2_x86_64"

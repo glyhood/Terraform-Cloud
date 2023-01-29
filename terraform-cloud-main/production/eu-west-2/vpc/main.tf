@@ -4,7 +4,7 @@
 
 
 locals {
-  cluster_name = "prod-eu-west-2-core-cluster"
+  cluster_name = "prod-eu-west-2-cluster"
 }
 
 module "vpc" {

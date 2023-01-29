@@ -1,7 +1,7 @@
 locals {
   use_existing_route53_zone = true
 
-  domain = "core-flutterwave.com"
+  domain = "demo.com"
 
   domain_name = trimsuffix(local.domain, ".")
 }

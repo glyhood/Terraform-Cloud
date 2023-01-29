@@ -1,5 +1,5 @@
 datadog:
-  clusterName: acquire-cluster
+  clusterName: demo-cluster
   kubeStateMetricsCore:
     enabled: true
   site: datadoghq.com
@@ -9,7 +9,7 @@ datadog:
   leaderElection: true
   tags:
     - "env": "prod"
-    - "host": "acquire-cluster"
+    - "host": "demo-cluster"
   logs:
     enabled: true
     containerCollectAll: true

@@ -3,8 +3,8 @@ module "eks" {
   version         = "17.24.0"
   cluster_name    = var.cluster_name
   cluster_version = "1.22"
-  vpc_id          = "vpc-015b83c4bd778c70e"
-  subnets         = ["subnet-0bab7de88454085ce", "subnet-0caabae7c9409557d"]
+  vpc_id          = "vpc-xxxx"
+  subnets         = ["subnet-xxxx", "subnet-xxxx"]
 
   manage_aws_auth = true
 
@@ -18,9 +18,9 @@ module "eks" {
   }
 
   map_roles = [
-    { "groups" : ["system:masters"], "rolearn" : "arn:aws:iam::724526322405:role/AWSReservedSSO_DevOps_ProdEnv_05222fed25e69974", "username" : "SSO_DevOps_ProdEnv" },
+    { "groups" : ["system:masters"], "rolearn" : "arn:aws:iam::xxxx:role/AWSReservedSSO_DevOps_ProdEnv", "username" : "SSO_DevOps_ProdEnv" },
     # No need to map the terraform-cloud role anymore for new clusters going forward. It is added automatically as the terraform-cloud assume_roles are now used
-    { "groups" : ["system:masters"], "rolearn" : "arn:aws:iam::724526322405:role/terraform-cloud", "username" : "terraform_cloud" }
+    { "groups" : ["system:masters"], "rolearn" : "arn:aws:iam::xxxx:role/terraform-cloud", "username" : "terraform_cloud" }
   ]
 
   # Managed Node Groups

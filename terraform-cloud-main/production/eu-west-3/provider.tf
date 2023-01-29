@@ -18,9 +18,9 @@ terraform {
 
 provider "aws" {
   region = "eu-west-3"
-  allowed_account_ids = ["724526322405"]
+  allowed_account_ids = ["xxxx"]
   assume_role {
-    role_arn     = "arn:aws:iam::724526322405:role/terraform-cloud"
+    role_arn     = "arn:aws:iam::xxxx:role/terraform-cloud"
   }
 }
 

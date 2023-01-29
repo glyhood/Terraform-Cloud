@@ -1,10 +1,10 @@
 locals {
   use_existing_route53_zone = true
 
-  domain = "devops-flutterwave.com"
-  acquire_domain = "aq2-flutterwave.com"
+  domain = "demo.com"
+  demo_domain = "demo.com"
   domain_name = trimsuffix(local.domain, ".")
-  acquire_domain_name = trimsuffix(local.acquire_domain, ".")
+  demo_domain_name = trimsuffix(local.demo_domain, ".")
 
 }
 
@@ -38,34 +38,34 @@ module "acm" {
   }
 }
 ####################################
-#          ACQUIRE ACM    #
+#          demo ACM    #
 ####################################
-data "aws_route53_zone" "acquire_zone" {
+data "aws_route53_zone" "demo_zone" {
   count = local.use_existing_route53_zone ? 1 : 0
-  name         = local.acquire_domain_name
+  name         = local.demo_domain_name
   private_zone = false
 }
 
-resource "aws_route53_zone" "acquire_zone" {
+resource "aws_route53_zone" "demo_zone" {
   count = !local.use_existing_route53_zone ? 1 : 0
-  name  = local.acquire_domain_name
+  name  = local.demo_domain_name
 }
 
-module "acquire_acm" {
+module "demo_acm" {
   source  = "terraform-aws-modules/acm/aws"
   version = "3.3.0"
 
-  domain_name = local.acquire_domain_name
-  zone_id     = coalescelist(data.aws_route53_zone.acquire_zone.*.zone_id, aws_route53_zone.acquire_zone.*.zone_id)[0]
+  domain_name = local.demo_domain_name
+  zone_id     = coalescelist(data.aws_route53_zone.demo_zone.*.zone_id, aws_route53_zone.demo_zone.*.zone_id)[0]
 
   subject_alternative_names = [
-    "*.${local.acquire_domain_name}",
+    "*.${local.demo_domain_name}",
     "*.coreflutterwaveprod.com"
   ]
 
   wait_for_validation = false
 
   tags = {
-    Name = local.acquire_domain_name
+    Name = local.demo_domain_name
   }
 }
