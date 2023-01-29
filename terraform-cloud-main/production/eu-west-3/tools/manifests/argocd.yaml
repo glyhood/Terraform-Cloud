@@ -1,0 +1,79 @@
+global:
+  images:
+    tag: "v2.5.5"
+
+dex:
+  extraArgs:
+   - --disable-tls
+
+configs:
+  cm:
+    exec.enabled: true
+    url: https://argocd.devops-flutterwave.com
+    oidc.config: |
+      name: JumpCloud
+      clientID: e5f847eb-aa42-4e4b-a7f0-ef1abe523805
+      clientSecret: $oidc.jumpcloud.clientSecret
+      issuer: https://oauth.id.jumpcloud.com/
+    resource.customizations: |
+      networking.k8s.io/Ingress:
+        health.lua: |
+          hs = {}
+          hs.status = "Healthy"
+          return hs
+
+  secret:
+    extra:
+      oidc.jumpcloud.clientSecret: ${jumpcloud_clientsecret}
+    
+  rbac:
+    policy.default: 'role:readonly'
+    policy.csv: |
+      p, role:admin, exec, create, */*, allow
+      g, AWS_DevOps, role:admin
+      g, AWS_SecOps, role:readonly
+
+  credentialTemplates:
+    https-creds:
+      url: https://gitlab.com/Flutterwavego
+      password: ${argocd_gat}
+      username: argocd
+
+  repositories:
+    flutterwave-charts:
+      url: https://gitlab.com/api/v4/projects/38906879/packages/helm/stable
+      name: flutterwave-charts
+      type: helm
+      password: ${argocd_gat}
+      username: argocd
+    app-manifests:
+      url: https://gitlab.com/Flutterwavego/devops/argocd.git
+      name: app-manifests
+      type: git
+
+redis-ha:
+  enabled: true
+
+controller:
+  replicas: 1
+
+server:
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"
+    hosts:
+      - argocd.devops-flutterwave.com
+    https: true
+  extraArgs:
+    - --insecure
+
+repoServer:
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+
+applicationSet:
+  replicaCount: 2
