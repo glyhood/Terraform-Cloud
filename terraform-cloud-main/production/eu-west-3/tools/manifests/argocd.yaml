@@ -35,12 +35,12 @@ configs:
 
   credentialTemplates:
     https-creds:
-      url: https://gitlab.com/Flutterwavego
+      url: https://gitlab.com/our-org
       password: ${argocd_gat}
       username: argocd
 
   repositories:
-    flutterwave-charts:
+    our-charts:
       url: https://gitlab.com/api/v4/projects/xxxx/packages/helm/stable
       name: xxxx-charts
       type: helm
