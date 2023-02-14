@@ -1,0 +1,26 @@
+datadog:
+  clusterName: devops-cluster
+  kubeStateMetricsCore:
+    enabled: true
+  site: datadoghq.com
+  apiKeyExistingSecret: datadog-secret
+  hostVolumeMountPropagation: HostToContainer
+  logLevel: INFO
+  leaderElection: true
+  tags:
+    - "env": "devops"
+    - "host": "devops-cluster"
+  logs:
+    enabled: true
+    containerCollectAll: true
+  containerExcludeLogs: "name:datadog-agent"
+  dogstatsd:
+    useHostPort: true
+  apm:
+    portEnabled: true
+clusterAgent:
+  replicas: 2
+  admissionController:
+    enabled: true
+    mutateUnlabelled: true
+  createPodDisruptionBudget: true

@@ -1,0 +1,79 @@
+global:
+  images:
+    tag: "v2.5.5"
+
+dex:
+  extraArgs:
+   - --disable-tls
+
+configs:
+  cm:
+    exec.enabled: true
+    url: https://argocd.devops-xxxx.com
+    oidc.config: |
+      name: JumpCloud
+      clientID: xxxx
+      clientSecret: $oidc.jumpcloud.clientSecret
+      issuer: https://oauth.id.jumpcloud.com/
+    resource.customizations: |
+      networking.k8s.io/Ingress:
+        health.lua: |
+          hs = {}
+          hs.status = "Healthy"
+          return hs
+
+  secret:
+    extra:
+      oidc.jumpcloud.clientSecret: ${jumpcloud_clientsecret}
+    
+  rbac:
+    policy.default: 'role:readonly'
+    policy.csv: |
+      p, role:admin, exec, create, */*, allow
+      g, AWS_DevOps, role:admin
+      g, AWS_SecOps, role:readonly
+
+  credentialTemplates:
+    https-creds:
+      url: https://gitlab.com/our-org
+      password: ${argocd_gat}
+      username: argocd
+
+  repositories:
+    our-charts:
+      url: https://gitlab.com/api/v4/projects/xxxx/packages/helm/stable
+      name: xxxx-charts
+      type: helm
+      password: ${argocd_gat}
+      username: argocd
+    app-manifests:
+      url: https://gitlab.com/xxxx/devops/argocd.git
+      name: app-manifests
+      type: git
+
+redis-ha:
+  enabled: true
+
+controller:
+  replicas: 1
+
+server:
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+  ingress:
+    enabled: true
+    ingressClassName: "nginx"
+    hosts:
+      - argocd.devops-xxxx.com
+    https: true
+  extraArgs:
+    - --insecure
+
+repoServer:
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+
+applicationSet:
+  replicaCount: 2
